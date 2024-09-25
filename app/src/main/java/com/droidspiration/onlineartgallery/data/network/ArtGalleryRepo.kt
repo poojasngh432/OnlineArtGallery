@@ -1,6 +1,7 @@
 package com.droidspiration.onlineartgallery.data.network
 
 import com.droidspiration.onlineartgallery.data.local.ArtGalleryRecordsDao
+import com.droidspiration.onlineartgallery.data.local.ArtPiece
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -17,7 +18,8 @@ class ArtGalleryRepo @Inject constructor(
         try {
             val response = artApiService.getRecords(query)
             val records = response.records
-            artGalleryRecordsDao.insertRecords(records)
+            val objectIDs = records.map { ArtPiece(objectId = it) }
+            artGalleryRecordsDao.insertRecords(objectIDs)
             emit(Result.Success(records))
         } catch (e: Exception) {
             emit(Result.Error(e))
@@ -28,7 +30,7 @@ class ArtGalleryRepo @Inject constructor(
         emit(Result.Loading)
         try {
             val randomRecord = artGalleryRecordsDao.getRandomArtId()
-            val artPieceData = artApiService.getArtPieceData(randomRecord.id)
+            val artPieceData = artApiService.getArtPieceData(randomRecord)
             emit(Result.Success(artPieceData))
         } catch (e: Exception) {
             emit(Result.Error(e))

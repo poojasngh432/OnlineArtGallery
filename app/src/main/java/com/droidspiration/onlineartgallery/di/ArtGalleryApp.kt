@@ -17,14 +17,12 @@ fun ArtGalleryApp() {
 
     OnlineArtGalleryTheme {
         NavHost(navController = navController, startDestination = "main") {
-            composable("main") { HomeScreen(navController = navController, onCardClick = { navController.navigate("search/${it.name}") }) } //select a museum
+            composable("main") { HomeScreen(navController = navController) }
             composable(
-                route = "search/{museum}",
-                arguments = listOf(navArgument("museum") {
-                    type = NavType.StringType })
+                route = "search",
             ) { backStackEntry -> //refresh records for a keyword
-                val museum = backStackEntry.arguments?.getString("museum")
-                SearchArtScreen(navController = navController, museum = museum)
+//                val museum = backStackEntry.arguments?.getString("museum")
+                SearchArtScreen(navController = navController)
             }
             composable(
                 route = "getArt/{objectId}",

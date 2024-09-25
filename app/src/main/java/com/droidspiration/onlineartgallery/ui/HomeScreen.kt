@@ -1,5 +1,6 @@
 package com.droidspiration.onlineartgallery.ui
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -24,11 +25,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberImagePainter
 import com.droidspiration.onlineartgallery.data.local.Museum
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = hiltViewModel(), navController: NavController, onCardClick: (Museum) -> Unit) {
+fun HomeScreen(viewModel: HomeViewModel = hiltViewModel(), navController: NavController) {
     val museums = listOf(
         Museum(
             "Metropolitan Museum of Art",
@@ -50,13 +52,13 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel(), navController: NavCon
             .padding(top = 32.dp)
     ) {
         items(museums) { museum ->
-            MuseumCard(museum = museum, onCardClick = onCardClick)
+            MuseumCard(museum = museum, navController)
         }
     }
 }
 
 @Composable
-fun MuseumCard(museum: Museum, onCardClick: (Museum) -> Unit) {
+fun MuseumCard(museum: Museum, navController: NavController) {
     Card(
         shape = RoundedCornerShape(6.dp),
         elevation = CardDefaults.elevatedCardElevation(8.dp),
@@ -64,7 +66,9 @@ fun MuseumCard(museum: Museum, onCardClick: (Museum) -> Unit) {
             .fillMaxWidth()
             .padding(top = 12.dp, start = 14.dp, end = 14.dp)
             .wrapContentHeight()
-            .clickable { onCardClick(museum) }
+            .clickable {
+                navController.navigate("search")
+            }
     ) {
         Column(
             modifier = Modifier.padding(16.dp),

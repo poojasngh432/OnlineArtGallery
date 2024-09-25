@@ -19,7 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 
 @Composable
-fun SearchArtScreen(viewModel: ArtRecordsViewModel = hiltViewModel(), navController: NavController, museum: String?) {
+fun SearchArtScreen(viewModel: ArtRecordsViewModel = hiltViewModel(), navController: NavController) {
     var query by remember { mutableStateOf("") }
     val uiState by viewModel.uiState.collectAsState()
 
@@ -35,7 +35,7 @@ fun SearchArtScreen(viewModel: ArtRecordsViewModel = hiltViewModel(), navControl
         }
 
         uiState.let {
-            navController.navigate("details")
+//            navController.navigate("details")
         }
 
         when (uiState) {
@@ -45,7 +45,7 @@ fun SearchArtScreen(viewModel: ArtRecordsViewModel = hiltViewModel(), navControl
             is UIState.Success -> {
 //                val artPiece = (uiState as UIState.Success)
 //                ArtPieceDetail(artPiece)  // Show art piece details
-                navController.navigate("getArt")
+//                navController.navigate("getArt")
             }
             is UIState.Error -> {
                 val message = (uiState as UIState.Error).message
