@@ -1,4 +1,4 @@
-# MoviesApp 🎬 (Jetpack Compose + Navigation + MVVM + Clean Architecture + Glide)
+# OnlineArtGallery App 🎬 (Jetpack Compose + Navigation + MVVM + Clean Architecture + Glide)
 Developed an online Art Gallery app that allows Art enthusiasts to browse through art pieces digitally from the database of the biggest Art museums. Using Compose + Kotlin + Hilt + Coroutines + Flow + Room DB + Coil
 
 ## App Features
